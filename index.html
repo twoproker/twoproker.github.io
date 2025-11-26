@@ -1,0 +1,1070 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>5729</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* 基础样式 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'PingFang SC', 'Helvetica Neue', Arial, sans-serif;
+        }
+
+        :root {
+            --primary-color: #8b0000;
+            --secondary-color: #4a0000;
+            --accent-color: #ff6b6b;
+            --text-color: #f8f8f8;
+            --dark-bg: #1a1a1a;
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            color: var(--text-color);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* 背景图片 */
+        .bg-image {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('881122/img/【哲风壁纸】夜樱-樱花-樱花树.png') no-repeat center center;
+            background-size: cover;
+            z-index: 0;
+            opacity: 0.7;
+        }
+
+        /* 主容器 */
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* 头部计时器 */
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: rgba(74, 0, 0, 0.5);
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(5px);
+        }
+
+        .timer {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: var(--accent-color);
+        }
+
+        .title {
+            font-size: 32px;
+            margin-bottom: 5px;
+            color: var(--text-color);
+        }
+
+        .subtitle {
+            font-size: 16px;
+            color: #aaa;
+        }
+
+        /* 导航按钮 */
+        .nav-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .nav-btn {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 12px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100px;
+            backdrop-filter: blur(5px);
+        }
+
+        .nav-btn i {
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.4);
+        }
+
+        /* 果冻动画效果 */
+        .jelly {
+            animation: jelly 0.5s;
+        }
+
+        @keyframes jelly {
+            0%, 100% { transform: scale(1, 1); }
+            25% { transform: scale(0.95, 1.05); }
+            50% { transform: scale(1.05, 0.95); }
+            75% { transform: scale(0.95, 1.05); }
+        }
+
+        /* 场景样式 */
+        .scene {
+            display: none;
+            background: rgba(74, 0, 0, 0.5);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(5px);
+        }
+
+        .active {
+            display: block;
+        }
+
+        .scene-title {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: var(--accent-color);
+            text-align: center;
+        }
+
+        /* 返回按钮 */
+        .back-btn {
+            background: rgba(74, 0, 0, 0.7);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
+            margin-bottom: 15px;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            backdrop-filter: blur(5px);
+        }
+
+        /* 回到顶部按钮 */
+        .to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            font-size: 20px;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            display: none;
+            z-index: 100;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+
+        .to-top:hover {
+            transform: scale(1.1);
+        }
+
+        /* 媒体播放器 */
+        .media-container {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .media-player {
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .close-media {
+            background: var(--secondary-color);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+
+        /* 日历样式 */
+        .calendar {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 5px;
+            margin-top: 15px;
+        }
+
+        .calendar-day {
+            background: rgba(139, 0, 0, 0.3);
+            border-radius: 5px;
+            padding: 10px 5px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .calendar-day:hover {
+            background: rgba(139, 0, 0, 0.5);
+        }
+
+        .calendar-header {
+            grid-column: 1 / -1;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        /* 记事本样式 */
+        .note-editor {
+            width: 100%;
+            min-height: 200px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 8px;
+            padding: 15px;
+            color: var(--text-color);
+            margin-bottom: 15px;
+            resize: vertical;
+            font-size: 16px;
+        }
+
+        .font-controls {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+
+        .font-btn {
+            background: rgba(139, 0, 0, 0.5);
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        /* 食物推荐样式 */
+        .food-card {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 15px;
+            text-align: center;
+            backdrop-filter: blur(5px);
+        }
+
+        .food-image-container {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin: 0 auto 15px;
+            border: 4px solid var(--accent-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(255, 107, 107, 0.2);
+            overflow: hidden;
+        }
+
+        .food-icon {
+            font-size: 50px;
+        }
+
+        .food-name {
+            font-size: 20px;
+            color: var(--accent-color);
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        .food-type {
+            background: var(--accent-color);
+            color: var(--secondary-color);
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 13px;
+            margin-bottom: 10px;
+            display: inline-block;
+        }
+
+        .food-desc {
+            color: #ccc;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        /* 页脚 */
+        .footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 30px;
+            color: #aaa;
+            font-size: 14px;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .nav-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .timer {
+                font-size: 20px;
+            }
+            
+            .title {
+                font-size: 28px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .nav-btn {
+                min-height: 80px;
+                padding: 12px;
+            }
+            
+            .to-top {
+                bottom: 20px;
+                right: 20px;
+                width: 45px;
+                height: 45px;
+            }
+        }
+        /* 保留原有页面基础样式（根据实际项目调整） */
+                body {
+                    margin: 0;
+                    padding: 0;
+                    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+                    background-color: #f5f5f7;
+                    color: #1d1d1f;
+                }
+                .scene {
+                    max-width: 600px;
+                    margin: 0 auto;
+                    padding: 20px;
+                    box-sizing: border-box;
+                }
+                .back-btn {
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 8px;
+                    padding: 8px 16px;
+                    background-color: transparent;
+                    border: none;
+                    color: #1d1d1f;
+                    font-size: 16px;
+                    cursor: pointer;
+                    border-radius: 8px;
+                    transition: background-color 0.3s;
+                }
+                .back-btn:hover {
+                    background-color: rgba(0,0,0,0.05);
+                }
+                .scene-title {
+                    font-size: 24px;
+                    font-weight: 600;
+                    margin: 20px 0;
+                    color: #1d1d1f;
+                }
+                .nav-grid {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 16px;
+                    margin-bottom: 30px;
+                }
+                /* QQ音乐专属按钮样式 */
+                .qqmusic-btn {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 12px;
+                    padding: 16px;
+                    background-color: #D43C33;
+                    color: white;
+                    border: none;
+                    border-radius: 12px;
+                    font-size: 18px;
+                    font-weight: 500;
+                    cursor: pointer;
+                    transition: all 0.3s;
+                    box-shadow: 0 2px 8px rgba(212, 60, 51, 0.2);
+                }
+                .qqmusic-btn:hover {
+                    background-color: #c0342c;
+                    transform: translateY(-2px);
+                    box-shadow: 0 4px 12px rgba(212, 60, 51, 0.3);
+                }
+                .qqmusic-btn:active {
+                    transform: translateY(0);
+                }
+                .qqmusic-btn i {
+                    font-size: 22px;
+                }
+                /* 状态提示样式 */
+                .status-message {
+                    text-align: center;
+                    margin: 16px 0;
+                    padding: 12px;
+                    border-radius: 8px;
+                    font-size: 14px;
+                    display: none;
+                }
+                .status-loading {
+                    background-color: #f0f7ff;
+                    color: #4299e1;
+                    display: block;
+                }
+                .status-success {
+                    background-color: #e6fffa;
+                    color: #38b2ac;
+                    display: block;
+                }
+                .status-error {
+                    background-color: #fff5f5;
+                    color: #e53e3e;
+                    display: block;
+                }
+                /* 备用链接样式 */
+                .backup-link {
+                    text-align: center;
+                    margin-top: 20px;
+                }
+                .backup-link a {
+                    color: #D43C33;
+                    text-decoration: none;
+                    font-size: 14px;
+                    display: inline-flex;
+                    align-items: center;
+                    gap: 6px;
+                }
+                .backup-link a:hover {
+                    text-decoration: underline;
+                }
+                /* 移除原有播放器样式（如果不需要可保留结构） */
+                .media-container {
+                    display: none !important;
+                }
+    </style>
+</head>
+<body>
+    <!-- 背景图片 -->
+    <div class="bg-image"></div>
+    
+    <!-- 回到顶部按钮 -->
+    <button class="to-top" id="toTop">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+    
+    <div class="container">
+        <!-- 头部 -->
+        <div class="header">
+            
+        </div>
+        
+        <!-- 主场景 -->
+        <div class="scene active" id="mainScene">
+            <div class="nav-grid">
+                <button class="nav-btn" data-scene="notebook">
+                    <i class="fas fa-book"></i>
+                    <span>记事簿</span>
+                </button>
+                <button class="nav-btn" data-scene="calendar">
+                    <i class="fas fa-calendar-alt"></i>
+                    <span>日历</span>
+                </button>
+                <button class="nav-btn" data-scene="mood">
+                    <i class="fas fa-smile"></i>
+                    <span>心情不好吗？</span>
+                </button>
+                <button class="nav-btn" data-scene="food">
+                    <i class="fas fa-utensils"></i>
+                    <span>不知道吃什么吗</span>
+                </button>
+            </div>
+        </div>
+        
+        <!-- 其他场景保持不变 -->
+        <!-- 记事簿场景 -->
+        <div class="scene" id="notebookScene">
+            <button class="back-btn" data-back="main">
+                <i class="fas fa-arrow-left"></i> 返回
+            </button>
+            <h2 class="scene-title">记事簿</h2>
+            <div class="font-controls">
+                <button class="font-btn" data-font="small">小字体</button>
+                <button class="font-btn" data-font="medium">中字体</button>
+                <button class="font-btn" data-font="large">大字体</button>
+                <button class="font-btn" data-font="bold">加粗</button>
+                <button class="font-btn" data-font="italic">斜体</button>
+                <button class="font-btn" data-font="underline">下划线</button>
+            </div>
+            <textarea class="note-editor" id="noteEditor" placeholder="开始记录..."></textarea>
+            <button class="nav-btn" id="saveNoteBtn">保存笔记</button>
+        </div>
+        
+        <!-- 日历场景 -->
+        <div class="scene" id="calendarScene">
+            <button class="back-btn" data-back="main">
+                <i class="fas fa-arrow-left"></i> 返回
+            </button>
+            <h2 class="scene-title">日历</h2>
+            <div class="calendar-header">
+                <button class="font-btn" id="prevMonth"><i class="fas fa-chevron-left"></i></button>
+                <div id="currentMonth">2024年11月</div>
+                <button class="font-btn" id="nextMonth"><i class="fas fa-chevron-right"></i></button>
+            </div>
+            <div class="calendar" id="calendar">
+                <!-- 日历将通过JavaScript动态生成 -->
+            </div>
+            <div style="margin-top: 20px;">
+                <h3>添加事件</h3>
+                <input type="text" id="eventInput" placeholder="事件内容" style="width: 100%; padding: 10px; margin: 10px 0; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.3); border-radius: 5px; color: white;">
+                <button class="nav-btn" id="addEventBtn">添加事件</button>
+            </div>
+        </div>
+        
+        <!-- 心情不好场景 -->
+        <div class="scene" id="moodScene">
+            <button class="back-btn" data-back="main">
+                <i class="fas fa-arrow-left"></i> 返回
+            </button>
+            <h2 class="scene-title">心情不好吗？</h2>
+            <div class="nav-grid">
+                <button class="nav-btn" id="watchDrama">
+                    <i class="fas fa-tv"></i>
+                    <span>想看剧嘛</span>
+                </button>
+                <button class="nav-btn" data-scene="music">
+                    <i class="fas fa-music"></i>
+                    <span>还是想听歌呢</span>
+                </button>
+                <button class="nav-btn" data-scene="sleep">
+                    <i class="fas fa-bed"></i>
+                    <span>都不想就睡一会吧</span>
+                </button>
+            </div>
+        </div>
+        
+        <!-- 听歌场景 -->
+        <div class="scene" id="musicScene">
+        <button class="back-btn" data-back="mood">
+            <i class="fas fa-arrow-left"></i> 返回
+        </button>
+        <h2 class="scene-title">听歌</h2>
+        <div class="nav-grid">
+            <!-- 替换原有歌曲按钮为QQ音乐跳转按钮 -->
+            <button class="qqmusic-btn" id="openQqMusic">
+                <i class="fas fa-music"></i>
+            <span>QQ音乐哦~</span>
+            </button>
+        </div>
+        
+        <!-- 状态提示区域 -->
+        <div class="status-message" id="statusMessage">
+            <i class="fas fa-spinner fa-spin mr-2"></i>
+            <span id="statusText">努力加载啊啊啊啊</span>
+        </div>
+        
+        <!-- 备用链接区域 -->
+        <div class="backup-link">
+            <a href="https://y.qq.com/" target="_blank" rel="noopener noreferrer">
+                <i class="fas fa-globe"></i>
+                <span>没有办法打开嘛？试一试网页版的吧</span>
+            </a>
+        </div>
+
+        <!-- 保留原有播放器容器（但隐藏，如需移除可直接删除） -->
+        <div class="media-container" id="musicPlayer" style="display: none;">
+            <video controls class="media-player" id="videoPlayer">
+                您的浏览器不支持视频元素。
+            </video>
+            <button class="close-media" id="closeMusic">
+                <i class="fas fa-times"></i> 关闭播放器
+            </button>
+        </div>
+    </div>
+        
+        
+        <!-- 食物推荐场景 -->
+        <div class="scene" id="foodScene">
+            <button class="back-btn" data-back="main">
+                <i class="fas fa-arrow-left"></i> 返回
+            </button>
+            <h2 class="scene-title">随机美食推荐</h2>
+            <div class="food-card">
+                <div class="food-image-container">
+                    <div class="food-icon">🥟</div>
+                </div>
+                <h2 id="foodName" class="food-name">小笼包</h2>
+                <div id="foodType" class="food-type">南方名吃</div>
+                <p id="foodDesc" class="food-desc">皮薄馅多，汤汁鲜美</p>
+            </div>
+            <button class="nav-btn" id="randomFoodBtn">随机推荐</button>
+        </div>
+        
+        <!-- 页脚 -->
+        <div class="footer">
+            <p>© 永远爱你</p>
+        </div>
+    </div>
+
+    <script>
+        // 食物数据
+        const defaultFoods = [
+            // 南方家常菜
+            { name: "红烧肉", type: "南方家常菜", desc: "色泽红亮，肥而不腻，入口即化", icon: "🍖" },
+            { name: "清蒸鲈鱼", type: "南方家常菜", desc: "鲜嫩爽滑，清淡可口", icon: "🐟" },
+            { name: "糖醋排骨", type: "南方家常菜", desc: "酸甜适中，外酥里嫩", icon: "🍖" },
+            { name: "麻婆豆腐", type: "南方家常菜", desc: "麻辣鲜香，口感滑嫩", icon: "🧈" },
+            { name: "宫保鸡丁", type: "南方家常菜", desc: "麻辣酸甜，鲜香爽口", icon: "🍗" },
+            
+            // 北方家常菜
+            { name: "京酱肉丝", type: "北方家常菜", desc: "酱香浓郁，咸甜适中", icon: "🍖" },
+            { name: "锅包肉", type: "北方家常菜", desc: "色泽金黄，外酥里嫩", icon: "🍖" },
+            { name: "地三鲜", type: "北方家常菜", desc: "鲜爽适口，营养丰富", icon: "🍆" },
+            { name: "猪肉炖粉条", type: "北方家常菜", desc: "肉烂粉滑，汤汁浓郁", icon: "🍖" },
+            { name: "小鸡炖蘑菇", type: "北方家常菜", desc: "鸡肉鲜嫩，蘑菇香浓", icon: "🍄" },
+            
+            // 南北方小吃名吃
+            { name: "北京烤鸭", type: "北方名吃", desc: "外皮酥脆，肉质鲜嫩", icon: "🦆" },
+            { name: "狗不理包子", type: "北方名吃", desc: "皮薄馅大，鲜香不腻", icon: "🥟" },
+            { name: "羊肉泡馍", type: "北方名吃", desc: "汤浓肉烂，馍筋爽口", icon: "🍲" },
+            { name: "煎饼果子", type: "北方名吃", desc: "外软内脆，酱香浓郁", icon: "🌯" },
+            { name: "小笼包", type: "南方名吃", desc: "皮薄馅多，汤汁鲜美", icon: "🥟" },
+            
+            // 国际美食
+            { name: "披萨", type: "西餐", desc: "饼底酥脆，配料丰富", icon: "🍕" },
+            { name: "汉堡", type: "西餐", desc: "面包松软，肉饼多汁", icon: "🍔" },
+            { name: "寿司", type: "日料", desc: "米饭软糯，鱼生鲜美", icon: "🍣" },
+            { name: "拉面", type: "日料", desc: "汤底浓郁，面条筋道", icon: "🍜" },
+            { name: "炸鸡", type: "韩餐", desc: "外酥里嫩，香辣可口", icon: "🍗" }
+        ];
+
+        // 音频数据
+        const audioFiles = {
+            audio1: "881122/music/20251024_203403.wav",
+            audio2: "881122/music/20251025_201314.wav",
+            audio3: "881122/music/20251027_230404.wav",
+            audio4: "881122/music/20251028_211620.wav",
+            audio5: "881122/music/20251104_225301.wav"
+        };
+
+        // 歌曲数据
+        const songFiles = {
+            song1: "881122/video/微信视频2025-11-06_144602_912.mp4",
+            song2: "881122/video/微信视频2025-11-06_144611_577.mp4",
+            song3: "881122/video/微信视频2025-11-06_144717_261.mp4",
+            song4: "881122/video/mmexport1762412219214.mp4",
+            song5: "881122/video/mmexport1762412203986.mp4"
+        };
+
+        // 初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            // 初始化导航
+            initNavigation();
+            
+            // 初始化回到顶部按钮
+            initToTopButton();
+            
+            // 初始化食物推荐
+            initFoodRecommendation();
+            
+            // 初始化媒体播放
+            initMediaPlayers();
+            
+            // 初始化日历
+            initCalendar();
+            
+            // 初始化记事本
+            initNotebook();
+        });
+
+        // 初始化导航
+        function initNavigation() {
+            // 场景切换
+            document.querySelectorAll('.nav-btn[data-scene]').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const targetScene = this.getAttribute('data-scene');
+                    showScene(targetScene);
+                    
+                    // 添加果冻动画
+                    this.classList.add('jelly');
+                    setTimeout(() => {
+                        this.classList.remove('jelly');
+                    }, 500);
+                });
+            });
+            
+            // 返回按钮
+            document.querySelectorAll('.back-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const targetScene = this.getAttribute('data-back');
+                    showScene(targetScene);
+                });
+            });
+            
+            // 看剧按钮
+            document.getElementById('watchDrama').addEventListener('click', function() {
+                window.open('https://v.ikanbot.com/', '_blank');
+            });
+        }
+
+        // 显示场景
+        function showScene(sceneId) {
+            // 隐藏所有场景
+            document.querySelectorAll('.scene').forEach(scene => {
+                scene.classList.remove('active');
+            });
+            
+            // 显示目标场景
+            let targetElement;
+            if (sceneId === 'main') {
+                targetElement = document.getElementById('mainScene');
+            } else {
+                targetElement = document.getElementById(sceneId + 'Scene');
+            }
+            
+            if (targetElement) {
+                targetElement.classList.add('active');
+                
+                // 滚动到顶部
+                window.scrollTo(0, 0);
+            }
+        }
+
+        // 初始化回到顶部按钮
+        function initToTopButton() {
+            const toTopBtn = document.getElementById('toTop');
+            
+            window.addEventListener('scroll', function() {
+                if (window.pageYOffset > 300) {
+                    toTopBtn.style.display = 'block';
+                } else {
+                    toTopBtn.style.display = 'none';
+                }
+            });
+            
+            toTopBtn.addEventListener('click', function() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+        }
+
+        // 初始化食物推荐
+        function initFoodRecommendation() {
+            const foodName = document.getElementById('foodName');
+            const foodType = document.getElementById('foodType');
+            const foodDesc = document.getElementById('foodDesc');
+            const foodIcon = document.querySelector('.food-icon');
+            const randomFoodBtn = document.getElementById('randomFoodBtn');
+            
+            function getRandomFood() {
+                const randomIndex = Math.floor(Math.random() * defaultFoods.length);
+                const selectedFood = defaultFoods[randomIndex];
+                
+                foodName.textContent = selectedFood.name;
+                foodType.textContent = selectedFood.type;
+                foodDesc.textContent = selectedFood.desc;
+                foodIcon.textContent = selectedFood.icon;
+            }
+            
+            randomFoodBtn.addEventListener('click', getRandomFood);
+            
+            // 初始显示一个随机食物
+            getRandomFood();
+        }
+
+        // 初始化媒体播放
+        function initMediaPlayers() {
+            // 歌曲播放
+            document.querySelectorAll('.nav-btn[data-song]').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const songId = this.getAttribute('data-song');
+                    const videoPlayer = document.getElementById('videoPlayer');
+                    const musicPlayer = document.getElementById('musicPlayer');
+                    
+                    videoPlayer.src = songFiles[songId];
+                    musicPlayer.style.display = 'block';
+                    
+                    // 滚动到播放器
+                    musicPlayer.scrollIntoView({ behavior: 'smooth' });
+                });
+            });
+            
+            // 关闭音乐播放器
+            document.getElementById('closeMusic').addEventListener('click', function() {
+                const videoPlayer = document.getElementById('videoPlayer');
+                const musicPlayer = document.getElementById('musicPlayer');
+                
+                videoPlayer.pause();
+                videoPlayer.src = '';
+                musicPlayer.style.display = 'none';
+            });
+            
+            // 音频播放
+            document.querySelectorAll('.nav-btn[data-audio]').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const audioId = this.getAttribute('data-audio');
+                    const relaxAudio = document.getElementById('relaxAudio');
+                    const audioPlayerContainer = document.getElementById('audioPlayerContainer');
+                    
+                    relaxAudio.src = audioFiles[audioId];
+                    audioPlayerContainer.style.display = 'block';
+                    
+                    // 滚动到播放器
+                    audioPlayerContainer.scrollIntoView({ behavior: 'smooth' });
+                });
+            });
+            
+            // 关闭音频播放器
+            document.getElementById('closeAudio').addEventListener('click', function() {
+                const relaxAudio = document.getElementById('relaxAudio');
+                const audioPlayerContainer = document.getElementById('audioPlayerContainer');
+                
+                relaxAudio.pause();
+                relaxAudio.src = '';
+                audioPlayerContainer.style.display = 'none';
+            });
+        }
+
+        // 初始化日历
+        function initCalendar() {
+            const calendar = document.getElementById('calendar');
+            const currentMonthElement = document.getElementById('currentMonth');
+            const prevMonthBtn = document.getElementById('prevMonth');
+            const nextMonthBtn = document.getElementById('nextMonth');
+            const addEventBtn = document.getElementById('addEventBtn');
+            const eventInput = document.getElementById('eventInput');
+            
+            let currentDate = new Date();
+            
+            function generateCalendar() {
+                // 清空日历
+                calendar.innerHTML = '';
+                
+                // 添加星期标题
+                const weekdays = ['日', '一', '二', '三', '四', '五', '六'];
+                weekdays.forEach(day => {
+                    const dayElement = document.createElement('div');
+                    dayElement.className = 'calendar-day';
+                    dayElement.textContent = day;
+                    calendar.appendChild(dayElement);
+                });
+                
+                // 获取当前月份的第一天和最后一天
+                const firstDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
+                const lastDay = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
+                
+                // 更新月份显示
+                currentMonthElement.textContent = `${currentDate.getFullYear()}年${currentDate.getMonth() + 1}月`;
+                
+                // 添加空白日期
+                for (let i = 0; i < firstDay.getDay(); i++) {
+                    const emptyDay = document.createElement('div');
+                    emptyDay.className = 'calendar-day';
+                    calendar.appendChild(emptyDay);
+                }
+                
+                // 添加日期
+                for (let i = 1; i <= lastDay.getDate(); i++) {
+                    const day = document.createElement('div');
+                    day.className = 'calendar-day';
+                    day.textContent = i;
+                    
+                    // 添加点击事件
+                    day.addEventListener('click', function() {
+                        alert(`选择了 ${currentDate.getMonth() + 1}月${i}日`);
+                    });
+                    
+                    calendar.appendChild(day);
+                }
+            }
+            
+            // 月份切换
+            prevMonthBtn.addEventListener('click', function() {
+                currentDate.setMonth(currentDate.getMonth() - 1);
+                generateCalendar();
+            });
+            
+            nextMonthBtn.addEventListener('click', function() {
+                currentDate.setMonth(currentDate.getMonth() + 1);
+                generateCalendar();
+            });
+            
+            // 添加事件
+            addEventBtn.addEventListener('click', function() {
+                if (eventInput.value.trim()) {
+                    alert(`事件 "${eventInput.value}" 已添加到日历`);
+                    eventInput.value = '';
+                } else {
+                    alert('请输入事件内容');
+                }
+            });
+            
+            generateCalendar();
+        }
+
+        // 初始化记事本
+        function initNotebook() {
+            const noteEditor = document.getElementById('noteEditor');
+            const fontControls = document.querySelectorAll('.font-btn');
+            const saveNoteBtn = document.getElementById('saveNoteBtn');
+            
+            // 加载保存的笔记
+            const savedNote = localStorage.getItem('userNote');
+            if (savedNote) {
+                noteEditor.value = savedNote;
+            }
+            
+            // 字体控制
+            fontControls.forEach(control => {
+                control.addEventListener('click', function() {
+                    const fontStyle = this.getAttribute('data-font');
+                    
+                    switch(fontStyle) {
+                        case 'small':
+                            noteEditor.style.fontSize = '14px';
+                            break;
+                        case 'medium':
+                            noteEditor.style.fontSize = '16px';
+                            break;
+                        case 'large':
+                            noteEditor.style.fontSize = '18px';
+                            break;
+                        case 'bold':
+                            noteEditor.style.fontWeight = noteEditor.style.fontWeight === 'bold' ? 'normal' : 'bold';
+                            break;
+                        case 'italic':
+                            noteEditor.style.fontStyle = noteEditor.style.fontStyle === 'italic' ? 'normal' : 'italic';
+                            break;
+                        case 'underline':
+                            noteEditor.style.textDecoration = noteEditor.style.textDecoration === 'underline' ? 'none' : 'underline';
+                            break;
+                    }
+                });
+            });
+            
+            // 保存笔记
+            saveNoteBtn.addEventListener('click', function() {
+                localStorage.setItem('userNote', noteEditor.value);
+                alert('笔记已保存！');
+            });
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            const openButton = document.getElementById('openQqMusic');
+            const statusMessage = document.getElementById('statusMessage');
+            const statusText = document.getElementById('statusText');
+            
+            // QQ音乐客户端URL Scheme（多种方案提高兼容性）
+            const qqMusicSchemes = [
+                'qqmusic://',                  // 主协议
+                'tencentmusic://',             // 备用协议
+                'qqmusicapi://launch',         // 启动协议
+                'qqmusic://launch'             // 简化启动协议
+            ];
+            
+            openButton.addEventListener('click', function() {
+                // 显示加载状态
+                statusMessage.className = 'status-message status-loading';
+                statusText.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>正在尝试打开QQ音乐...';
+                
+                // 尝试所有URL Scheme
+                let schemeIndex = 0;
+                const tryNextScheme = () => {
+                    if (schemeIndex < qqMusicSchemes.length) {
+                        const scheme = qqMusicSchemes[schemeIndex];
+                        schemeIndex++;
+                        
+                        // 创建隐藏的a标签触发跳转
+                        const link = document.createElement('a');
+                        link.href = scheme;
+                        link.target = '_blank';
+                        document.body.appendChild(link);
+                        
+                        // 触发点击
+                        link.click();
+                        document.body.removeChild(link);
+                        
+                        // 检查是否成功（通过定时器判断）
+                        setTimeout(() => {
+                            // 如果是最后一个方案且仍未成功，提示并提供网页版链接
+                            if (schemeIndex === qqMusicSchemes.length) {
+                                statusMessage.className = 'status-message status-error';
+                                statusText.innerHTML = '<i class="fas fa-exclamation-circle mr-2"></i>未检测到QQ音乐客户端，可点击下方链接访问网页版';
+                            } else {
+                                // 尝试下一个Scheme
+                                tryNextScheme();
+                            }
+                        }, 800);
+                    }
+                };
+                
+                tryNextScheme();
+                
+                // 监听页面可见性变化（判断是否成功唤起）
+                const handleVisibilityChange = () => {
+                    if (document.hidden) {
+                        // 页面被隐藏，说明可能成功唤起了客户端
+                        statusMessage.className = 'status-message status-success';
+                        statusText.innerHTML = '<i class="fas fa-check-circle mr-2"></i>QQ音乐已成功打开！';
+                    }
+                };
+                
+                document.addEventListener('visibilitychange', handleVisibilityChange);
+                
+                // 5秒后移除监听（防止内存泄漏）
+                setTimeout(() => {
+                    document.removeEventListener('visibilitychange', handleVisibilityChange);
+                }, 5000);
+            });
+            
+            // 返回按钮功能（保持原有逻辑）
+            const backBtn = document.querySelector('.back-btn');
+            backBtn.addEventListener('click', function() {
+                const target = this.getAttribute('data-back');
+                // 这里可根据实际项目添加返回逻辑，例如：
+                // window.location.href = `/${target}.html`;
+                // 或 history.back();
+                console.log(`返回至${target}页面`);
+            });
+        });
+    </script>
+</body>
+</html>
