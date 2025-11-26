@@ -1,0 +1,472 @@
+/* 基础样式 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'PingFang SC', 'Helvetica Neue', Arial, sans-serif;
+}
+
+:root {
+    --primary-color: #8b0000;
+    --secondary-color: #4a0000;
+    --accent-color: #ff6b6b;
+    --text-color: #f8f8f8;
+    --dark-bg: #1a1a1a;
+}
+
+body {
+    background-color: var(--dark-bg);
+    color: var(--text-color);
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* 背景图片 */
+.bg-image {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('881122/img/【哲风壁纸】夜樱-樱花-樱花树.png') no-repeat center center;
+    background-size: cover;
+    z-index: 0;
+    opacity: 0.7;
+}
+
+/* 主容器 */
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    position: relative;
+    z-index: 2;
+}
+
+/* 头部计时器 */
+.header {
+    text-align: center;
+    margin-bottom: 30px;
+    padding: 20px;
+    background: rgba(74, 0, 0, 0.5);
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(5px);
+}
+
+.timer {
+    font-size: 24px;
+    margin-bottom: 10px;
+    color: var(--accent-color);
+}
+
+.title {
+    font-size: 32px;
+    margin-bottom: 5px;
+    color: var(--text-color);
+}
+
+.subtitle {
+    font-size: 16px;
+    color: #aaa;
+}
+
+/* 导航按钮 */
+.nav-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.nav-btn {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    border: none;
+    padding: 15px;
+    border-radius: 12px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100px;
+    backdrop-filter: blur(5px);
+}
+
+.nav-btn i {
+    font-size: 24px;
+    margin-bottom: 8px;
+}
+
+.nav-btn:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.4);
+}
+
+/* 果冻动画效果 */
+.jelly {
+    animation: jelly 0.5s;
+}
+
+@keyframes jelly {
+    0%, 100% { transform: scale(1, 1); }
+    25% { transform: scale(0.95, 1.05); }
+    50% { transform: scale(1.05, 0.95); }
+    75% { transform: scale(0.95, 1.05); }
+}
+
+/* 场景样式 */
+.scene {
+    display: none;
+    background: rgba(74, 0, 0, 0.5);
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 30px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(5px);
+}
+
+.active {
+    display: block;
+}
+
+.scene-title {
+    font-size: 24px;
+    margin-bottom: 15px;
+    color: var(--accent-color);
+    text-align: center;
+}
+
+/* 返回按钮 */
+.back-btn {
+    background: rgba(74, 0, 0, 0.7);
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 8px;
+    font-size: 14px;
+    cursor: pointer;
+    margin-bottom: 15px;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    backdrop-filter: blur(5px);
+}
+
+/* 回到顶部按钮 */
+.to-top {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 50px;
+    height: 50px;
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    font-size: 20px;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    display: none;
+    z-index: 100;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(5px);
+}
+
+.to-top:hover {
+    transform: scale(1.1);
+}
+
+/* 媒体播放器 */
+.media-container {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.media-player {
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.close-media {
+    background: var(--secondary-color);
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+/* 日历样式 */
+.calendar {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+    margin-top: 15px;
+}
+
+.calendar-day {
+    background: rgba(139, 0, 0, 0.3);
+    border-radius: 5px;
+    padding: 10px 5px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.calendar-day:hover {
+    background: rgba(139, 0, 0, 0.5);
+}
+
+.calendar-header {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+/* 记事本样式 */
+.note-editor {
+    width: 100%;
+    min-height: 200px;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 8px;
+    padding: 15px;
+    color: var(--text-color);
+    margin-bottom: 15px;
+    resize: vertical;
+    font-size: 16px;
+}
+
+.font-controls {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+}
+
+.font-btn {
+    background: rgba(139, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* 食物推荐样式 */
+.food-card {
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 15px;
+    text-align: center;
+    backdrop-filter: blur(5px);
+}
+
+.food-image-container {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    margin: 0 auto 15px;
+    border: 4px solid var(--accent-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(255, 107, 107, 0.2);
+    overflow: hidden;
+}
+
+.food-icon {
+    font-size: 50px;
+}
+
+.food-name {
+    font-size: 20px;
+    color: var(--accent-color);
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+.food-type {
+    background: var(--accent-color);
+    color: var(--secondary-color);
+    padding: 4px 12px;
+    border-radius: 15px;
+    font-size: 13px;
+    margin-bottom: 10px;
+    display: inline-block;
+}
+
+.food-desc {
+    color: #ccc;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+/* 页脚 */
+.footer {
+    text-align: center;
+    padding: 20px;
+    margin-top: 30px;
+    color: #aaa;
+    font-size: 14px;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .nav-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .timer {
+        font-size: 20px;
+    }
+    
+    .title {
+        font-size: 28px;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 10px;
+    }
+    
+    .nav-btn {
+        min-height: 80px;
+        padding: 12px;
+    }
+    
+    .to-top {
+        bottom: 20px;
+        right: 20px;
+        width: 45px;
+        height: 45px;
+    }
+}
+/* 保留原有页面基础样式（根据实际项目调整） */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: #f5f5f7;
+            color: #1d1d1f;
+        }
+        .scene {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background-color: transparent;
+            border: none;
+            color: #1d1d1f;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: background-color 0.3s;
+        }
+        .back-btn:hover {
+            background-color: rgba(0,0,0,0.05);
+        }
+        .scene-title {
+            font-size: 24px;
+            font-weight: 600;
+            margin: 20px 0;
+            color: #1d1d1f;
+        }
+        .nav-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-bottom: 30px;
+        }
+        /* QQ音乐专属按钮样式 */
+        .qqmusic-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            padding: 16px;
+            background-color: #D43C33;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 2px 8px rgba(212, 60, 51, 0.2);
+        }
+        .qqmusic-btn:hover {
+            background-color: #c0342c;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(212, 60, 51, 0.3);
+        }
+        .qqmusic-btn:active {
+            transform: translateY(0);
+        }
+        .qqmusic-btn i {
+            font-size: 22px;
+        }
+        /* 状态提示样式 */
+        .status-message {
+            text-align: center;
+            margin: 16px 0;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 14px;
+            display: none;
+        }
+        .status-loading {
+            background-color: #f0f7ff;
+            color: #4299e1;
+            display: block;
+        }
+        .status-success {
+            background-color: #e6fffa;
+            color: #38b2ac;
+            display: block;
+        }
+        .status-error {
+            background-color: #fff5f5;
+            color: #e53e3e;
+            display: block;
+        }
+        /* 备用链接样式 */
+        .backup-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .backup-link a {
+            color: #D43C33;
+            text-decoration: none;
+            font-size: 14px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .backup-link a:hover {
+            text-decoration: underline;
+        }
+        /* 移除原有播放器样式（如果不需要可保留结构） */
+        .media-container {
+            display: none !important;
+        }

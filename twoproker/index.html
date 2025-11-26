@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>5729</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- 背景图片 -->
+    <div class="bg-image"></div>
+    
+    <!-- 回到顶部按钮 -->
+    <button class="to-top" id="toTop">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+    
+    <div class="container">
+        <!-- 头部 -->
+        <div class="header">
+            
+        </div>
+        
+        <!-- 主场景 -->
+        <div class="scene active" id="mainScene">
+            <div class="nav-grid">
+                <button class="nav-btn" data-scene="notebook">
+                    <i class="fas fa-book"></i>
+                    <span>记事簿</span>
+                </button>
+                <button class="nav-btn" data-scene="calendar">
+                    <i class="fas fa-calendar-alt"></i>
+                    <span>日历</span>
+                </button>
+                <button class="nav-btn" data-scene="mood">
+                    <i class="fas fa-smile"></i>
+                    <span>心情不好吗？</span>
+                </button>
+                <button class="nav-btn" data-scene="food">
+                    <i class="fas fa-utensils"></i>
+                    <span>不知道吃什么吗</span>
+                </button>
+            </div>
+        </div>
+        
+        <!-- 其他场景保持不变 -->
+        <!-- 记事簿场景 -->
+        <div class="scene" id="notebookScene">
+            <button class="back-btn" data-back="main">
+                <i class="fas fa-arrow-left"></i> 返回
+            </button>
+            <h2 class="scene-title">记事簿</h2>
+            <div class="font-controls">
+                <button class="font-btn" data-font="small">小字体</button>
+                <button class="font-btn" data-font="medium">中字体</button>
+                <button class="font-btn" data-font="large">大字体</button>
+                <button class="font-btn" data-font="bold">加粗</button>
+                <button class="font-btn" data-font="italic">斜体</button>
+                <button class="font-btn" data-font="underline">下划线</button>
+            </div>
+            <textarea class="note-editor" id="noteEditor" placeholder="开始记录..."></textarea>
+            <button class="nav-btn" id="saveNoteBtn">保存笔记</button>
+        </div>
+        
+        <!-- 日历场景 -->
+        <div class="scene" id="calendarScene">
+            <button class="back-btn" data-back="main">
+                <i class="fas fa-arrow-left"></i> 返回
+            </button>
+            <h2 class="scene-title">日历</h2>
+            <div class="calendar-header">
+                <button class="font-btn" id="prevMonth"><i class="fas fa-chevron-left"></i></button>
+                <div id="currentMonth">2024年11月</div>
+                <button class="font-btn" id="nextMonth"><i class="fas fa-chevron-right"></i></button>
+            </div>
+            <div class="calendar" id="calendar">
+                <!-- 日历将通过JavaScript动态生成 -->
+            </div>
+            <div style="margin-top: 20px;">
+                <h3>添加事件</h3>
+                <input type="text" id="eventInput" placeholder="事件内容" style="width: 100%; padding: 10px; margin: 10px 0; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.3); border-radius: 5px; color: white;">
+                <button class="nav-btn" id="addEventBtn">添加事件</button>
+            </div>
+        </div>
+        
+        <!-- 心情不好场景 -->
+        <div class="scene" id="moodScene">
+            <button class="back-btn" data-back="main">
+                <i class="fas fa-arrow-left"></i> 返回
+            </button>
+            <h2 class="scene-title">心情不好吗？</h2>
+            <div class="nav-grid">
+                <button class="nav-btn" id="watchDrama">
+                    <i class="fas fa-tv"></i>
+                    <span>想看剧嘛</span>
+                </button>
+                <button class="nav-btn" data-scene="music">
+                    <i class="fas fa-music"></i>
+                    <span>还是想听歌呢</span>
+                </button>
+                <button class="nav-btn" data-scene="sleep">
+                    <i class="fas fa-bed"></i>
+                    <span>都不想就睡一会吧</span>
+                </button>
+            </div>
+        </div>
+        
+        <!-- 听歌场景 -->
+        <div class="scene" id="musicScene">
+        <button class="back-btn" data-back="mood">
+            <i class="fas fa-arrow-left"></i> 返回
+        </button>
+        <h2 class="scene-title">听歌</h2>
+        <div class="nav-grid">
+            <!-- 替换原有歌曲按钮为QQ音乐跳转按钮 -->
+            <button class="qqmusic-btn" id="openQqMusic">
+                <i class="fas fa-music"></i>
+            <span>QQ音乐哦~</span>
+            </button>
+        </div>
+        
+        <!-- 状态提示区域 -->
+        <div class="status-message" id="statusMessage">
+            <i class="fas fa-spinner fa-spin mr-2"></i>
+            <span id="statusText">努力加载啊啊啊啊</span>
+        </div>
+        
+        <!-- 备用链接区域 -->
+        <div class="backup-link">
+            <a href="https://y.qq.com/" target="_blank" rel="noopener noreferrer">
+                <i class="fas fa-globe"></i>
+                <span>没有办法打开嘛？试一试网页版的吧</span>
+            </a>
+        </div>
+
+        <!-- 保留原有播放器容器（但隐藏，如需移除可直接删除） -->
+        <div class="media-container" id="musicPlayer" style="display: none;">
+            <video controls class="media-player" id="videoPlayer">
+                您的浏览器不支持视频元素。
+            </video>
+            <button class="close-media" id="closeMusic">
+                <i class="fas fa-times"></i> 关闭播放器
+            </button>
+        </div>
+    </div>
+        
+        
+        
+        <!-- 食物推荐场景 -->
+        <div class="scene" id="foodScene">
+            <button class="back-btn" data-back="main">
+                <i class="fas fa-arrow-left"></i> 返回
+            </button>
+            <h2 class="scene-title">随机美食推荐</h2>
+            <div class="food-card">
+                <div class="food-image-container">
+                    <div class="food-icon">🥟</div>
+                </div>
+                <h2 id="foodName" class="food-name">小笼包</h2>
+                <div id="foodType" class="food-type">南方名吃</div>
+                <p id="foodDesc" class="food-desc">皮薄馅多，汤汁鲜美</p>
+            </div>
+            <button class="nav-btn" id="randomFoodBtn">随机推荐</button>
+        </div>
+        
+        <!-- 页脚 -->
+        <div class="footer">
+            <p>© 永远爱你</p>
+        </div>
+    </div>
+
+    <script src="index.js"></script>
+</body>
+</html>
